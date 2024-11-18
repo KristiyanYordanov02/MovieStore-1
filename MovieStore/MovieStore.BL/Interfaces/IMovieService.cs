@@ -7,5 +7,7 @@ namespace MovieStore.BL.Interfaces
         List<Movie> GetAllMovies();
 
         void AddMovie(Movie movie);
+        void deleteMovie(int id);
+        void UpdateMovie(Movie movieDto);
     }
 }

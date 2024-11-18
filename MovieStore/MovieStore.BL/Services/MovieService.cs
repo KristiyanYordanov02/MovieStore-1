@@ -22,5 +22,15 @@ namespace MovieStore.BL.Services
         {
             _movieRepository.AddMovie(movie);
         }
+
+        public void deleteMovie(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateMovie(Movie movieDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

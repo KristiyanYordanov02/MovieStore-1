@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MovieStore.Models.Request
+﻿namespace MovieStore.Models.Request
 {
-    internal class UpdateMovieRequest
+    public class UpdateMovieRequest
     {
+        public String Id { get; set; }
+
+        public String Title { get; set; }
+
+        public String Year { get; set; }
     }
 }

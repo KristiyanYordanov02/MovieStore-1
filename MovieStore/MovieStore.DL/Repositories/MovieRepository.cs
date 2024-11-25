@@ -16,10 +16,11 @@ namespace MovieStore.DL.Repositories
             InMemoryDb.Movies.Add(movie);
         }
 
-        public Movie? GetMovieById(int id)
+        public Movie? GetMovieId(int id)
         {
            return InMemoryDb.Movies
                .FirstOrDefault(m => m.Id == id);
         }
+
     }
 }

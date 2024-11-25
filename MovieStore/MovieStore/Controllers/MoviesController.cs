@@ -16,11 +16,16 @@ namespace MovieStore.Controllers
     {
         private readonly IMovieService _movieService;
         private readonly IMapper _mapper;
+        private readonly ILogger<MoviesController> _logger;
 
-        public MoviesController(IMovieService movieService, IMapper mapper)
+        public MoviesController(
+            IMovieService movieService,
+            IMapper mapper, 
+            ILogger<MoviesController> logger)
         {
             _movieService = movieService;
-            _mapper=mapper;
+            _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet("GetAll")]
@@ -39,8 +44,10 @@ namespace MovieStore.Controllers
         [HttpGet("GetById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetById(int id)
         {
+            _logger.LogError(message:$"Getting movie with Id:{id}");
             if (id <=0)
             {
                 return BadRequest("Id must be greater than 0");
@@ -72,6 +79,7 @@ namespace MovieStore.Controllers
                 }
                 catch (Exception ex)
                 {
+                _logger.LogError(ex, message: $"Error adding movie with:");
                     return BadRequest(ex.Message);
                 }
             return Ok();

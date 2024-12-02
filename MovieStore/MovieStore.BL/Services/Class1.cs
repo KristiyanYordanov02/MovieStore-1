@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieStore.BL.Services
 {
-    internal class MoviesBLService
+    internal class Class1
     {
     }
 }

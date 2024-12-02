@@ -1,21 +1,20 @@
 ﻿using FluentValidation;
-using FluentValidation.AspNetCore;
-using MovieStore.Models.Request;
+using MovieStore.Models.Requests;
 
-namespace MovieStore.Validation
+namespace MovieStore.Validators
 {
-    public class ddMovieRequestValidator : AbstractValidator<AddMovieRequest>
+    public class AddMovieRequestValidator : AbstractValidator<AddMovieRequest>
     {
-        public ddMovieRequestValidator()
+        public AddMovieRequestValidator()
         {
             RuleFor(x => x.Title)
-            .NotEmpty()
-            .NotNull()
-            .MaximumLength(100)
-            .MinimumLength(2);
+                .NotEmpty()
+                .NotNull()
+                .MaximumLength(100)
+                .MinimumLength(2);
 
             RuleFor(x => x.Year)
-                .GreaterThan(1900).WithMessage("Year must be greater than 1900")
+                .GreaterThan(1900).WithMessage("Year must be greater than 1900 lshfkjsd")
                 .LessThan(2100);
         }
     }

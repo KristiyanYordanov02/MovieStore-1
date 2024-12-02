@@ -1,12 +1,10 @@
+using System.Net;
 using MapsterMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MovieStore.BL.Interfaces;
 using MovieStore.DL.Interfaces;
 using MovieStore.Models.DTO;
-using MovieStore.Models.Request;
-using System.Linq.Expressions;
+using MovieStore.Models.Requests;
 
 namespace MovieStore.Controllers
 {
@@ -28,12 +26,14 @@ namespace MovieStore.Controllers
             _logger = logger;
         }
 
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("GetAll")]
-        public IActionResult GetAll()
+        public IActionResult Get()
         {
             var result = _movieService.GetAllMovies();
 
-            if (result == null || result.Count ==0)
+            if (result == null || result.Count == 0)
             {
                 return NotFound("No movies found");
             }
@@ -47,55 +47,57 @@ namespace MovieStore.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetById(int id)
         {
-            _logger.LogError(message:$"Getting movie with Id:{id}");
-            if (id <=0)
+            _logger.LogError($"Getting movie with ID:{id}");
+            if (id <= 0)
             {
                 return BadRequest("Id must be greater than 0");
             }
 
             var result = _movieService.GetById(id);
 
-            if (result ==null)
-
+            if (result == null)
             {
                 return NotFound($"Movie with ID:{id} not found");
-
-
             }
+
             return Ok(result);
         }
-            [HttpPost("Add")]
-            public IActionResult Add(AddMovieRequest movie)
+
+        [HttpPost("Add")]
+        public IActionResult Add(AddMovieRequest movie)
+        {
+            try
             {
-                try
-                {
-                    var movieDTO = _mapper.Map<Movie>(movie);
+                var movieDto = _mapper.Map<Movie>(movie);
 
-
-                    if (movieDTO == null)
-                    {
-                    return BadRequest("Cant convert movie");
-                        }
-                }
-                catch (Exception ex)
+                if (movieDto == null)
                 {
-                _logger.LogError(ex, message: $"Error adding movie with:");
-                    return BadRequest(ex.Message);
+                    return BadRequest("Can't convert movie to movie DTO");
                 }
-            return Ok();
+
+                _movieService.AddMovie(movieDto);
+
+                return Ok();
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, $"Error adding movie with");
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("Delete")]
+        public IActionResult Delete(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest("Id must be greater than 0");
             }
 
-            [HttpDelete("Delete")]
-            public IActionResult Delete(int id)
-            {
-                if (id <=0)
-                {
-                    return BadRequest("Id must be greater than 0");
-                }
-                
-            return Ok();
-            }
+            //_movieService.Delete(id);
 
+
+            return Ok();
         }
     }
-
+}

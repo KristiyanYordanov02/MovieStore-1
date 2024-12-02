@@ -1,11 +1,11 @@
-﻿namespace MovieStore.Models.Request
+﻿namespace MovieStore.Models.Requests
 {
     public class UpdateMovieRequest
     {
-        public String Id { get; set; }
+        public int Id { get; set; }
 
-        public String Title { get; set; }
+        public string Title { get; set; }
 
-        public String Year { get; set; }
+        public int Year { get; set; }
     }
 }

@@ -4,7 +4,7 @@ namespace MovieStore.DL.StaticDB
 {
     internal static class InMemoryDb
     {
-        internal static List<Actor> Actors 
+        internal static List<Actor> Actors
             = new List<Actor>
         {
             new Actor

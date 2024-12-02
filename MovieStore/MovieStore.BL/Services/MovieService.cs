@@ -12,7 +12,7 @@ namespace MovieStore.BL.Services
         {
             _movieRepository = movieRepository;
         }
-        
+
         public List<Movie> GetAllMovies()
         {
             return _movieRepository.GetAllMovies();

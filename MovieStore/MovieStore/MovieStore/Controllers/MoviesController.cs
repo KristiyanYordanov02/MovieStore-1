@@ -16,7 +16,7 @@ namespace MovieStore.Controllers
 
         public MoviesController(
             IMovieService movieService,
-            IMapper mapper, 
+            IMapper mapper,
             ILogger<MoviesController> logger)
         {
             _movieService = movieService;

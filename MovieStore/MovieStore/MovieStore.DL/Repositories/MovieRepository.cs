@@ -23,8 +23,8 @@ namespace MovieStore.DL.Repositories
         /// <returns></returns>
         public Movie? GetMovieById(int id)
         {
-           return InMemoryDb.Movies
-               .FirstOrDefault(m => m.Id == id);
+            return InMemoryDb.Movies
+                .FirstOrDefault(m => m.Id == id);
         }
     }
 }
